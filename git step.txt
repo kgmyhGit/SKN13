@@ -1,0 +1,10 @@
+- git pull  : 원격에 새로 추가된 내역을 내 로컬에 받기.
+- 변경 후
+   - git status: 로컬 저장소의 상태 조회
+   - git add : staging area(index) 로 옮기기. 
+        - git add .
+   - git  commit   -m   "커밋메세지"
+	- git commit -m "두개 파일 수정"
+   - git push  서버이름  브랜치
+        - git push  origin  main
+
