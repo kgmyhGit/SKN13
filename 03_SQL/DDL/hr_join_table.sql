@@ -1,5 +1,5 @@
 -- CREATE DATABASE hr_join;
--- USE  hr_join;
+USE  hr_join;
 
 -- set foreign_key_checks=0;
 
@@ -94,7 +94,7 @@ CREATE TABLE emp(
     comm_pct  DECIMAL(2,2),
     dept_id   INT,
     CONSTRAINT fk_emp_dept FOREIGN KEY(dept_id) REFERENCES dept(dept_id) ON DELETE SET NULL,
-    CONSTRAINT fk_emp_job FOREIGN KEY(job_id) REFERENCES job(job_id) ON DELETE SET NULL,
+    CONSTRAINT fk_emp_job FOREIGN KEY(job_id) REFERENCES job(job_id) ON DELETE CASCADE,
     CONSTRAINT fk_emp_mgr FOREIGN KEY(mgr_id) REFERENCES emp(emp_id) ON DELETE SET NULL
 );
 
@@ -225,3 +225,9 @@ INSERT INTO salary_grade (grade,low_sal,high_sal) VALUES (4, 15001, 20000);
 INSERT INTO salary_grade (grade,low_sal,high_sal) VALUES (5, 20001, 99999);
 
 COMMIT;
+
+show databases;
+use hr_join;
+show tables;
+
+
