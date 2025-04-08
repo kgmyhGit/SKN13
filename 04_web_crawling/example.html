@@ -1,0 +1,76 @@
+<!--HTML(5) 문서 선언-->
+<!doctype html>
+<!-- ROOT 태그: HTML -->
+<html>
+    <!--head: 문서의 정보들-->
+    <head>
+        <title>우리동물원 소개</title>
+        <meta charset="UTF-8">
+        <style>
+            h1 {
+                background:red;
+                color:white;
+            }
+            div#animal1 { /*div 중 id가 animal1인 elements*/
+                color: red
+            }
+            div.animal_info {/*div 중 class='animal_info'인 elements*/
+                border: 2px solid rgb(51, 211, 213);
+                width: 400px;
+                padding: 30px; 
+                margin: 5px;
+            }
+            .name {  /* *: (태그이름) 모든 태그들 class/id 를 연결해서 지정시 생략가능. *.name, .name  */
+                font-size:1.2em; /*em: 상대적 크기. 기본 size에 1.2배*/
+                font-weight: bold;
+            }
+            a:hover {
+                color:red;
+            }
+           div > a:nth-child(2n) {/* div 자식 노드 중 2의 배수번째 자식 태그인 a elements*/
+                font-size:1.5em;
+            }
+        </style>
+    </head>
+    <!--body: 문서 내용-->
+    <body>
+        <h1>동물목록</h1><!--h1 ~ h6: 제목태그. -->
+        <!--div: divide-->
+        <div id="animal1" class="animal_info">
+            <div class="name">사자</div>
+            <div>3마리</div>
+        </div>
+        <div class="animal_info">
+            <div class="name">호랑이</div>
+            <div>10마리</div>
+        </div>
+        <div class="animal_info">
+            <div class="name">곰</div>
+            <div>5마리</div>
+        </div>
+        <div class="animal_info">
+            <div class="name">낙타</div>
+            <div>6마리</div>
+        </div>
+        우리 동물원에는 <span class="name">기린</span>도 30&nbsp;마리 있습니다.
+
+        <h1>다른 동물원 URL</h1>
+        <!--ul/ol: 목록태그. li: item들 지정.-->
+        <!--a: 링크, href 속성: 이동할 url을 지정.-->
+        <ul>
+            <li><a href="https://grandpark.seoul.go.kr/main/ko.do">서울 대공원</a></li>
+            <li><a href="https://www.everland.com/web/everland/favorite/zootopia/index.html">에버랜드</a></li>
+            <li><a href="https://www.coexaqua.com">코엑스아쿠아리움</a></li>
+        </ul>
+	<div id="potal">
+            <a href="http://www.naver.com">네이버</a>
+            <a href="http://www.naver.com">다음</a>
+            <a href="http://www.naver.com">구글</a>
+            <a href="http://www.naver.com">구글2</a>
+            <a href="http://www.naver.com">구글3</a>
+            <a href="http://www.naver.com">구글4</a>
+	</div>
+        <br>
+        <img src="https://www.gereports.kr/wp-content/uploads/2022/02/hybrid_propulsion-820x398.jpg" width="500px"><!--image의 url을 src에 지정.-->
+    </body>
+</html>
