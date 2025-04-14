@@ -54,7 +54,7 @@ with col2:
 # @st.cache_data
 #   - data를 반환하는 함수에 사용
 #   - 파이썬 value, DataFrame
-# @st.cache.resource
+# @st.cache_resource
 #   - resource를 반환하는 함수에 사용
 #   - 머신러닝/딥러닝 모델, Database 연결등
 #  

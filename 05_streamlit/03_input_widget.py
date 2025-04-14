@@ -14,7 +14,8 @@ st.set_page_config(page_title="✏️Input Widget✏️", layout="wide")
 ################################################################
 st.subheader("text 입력")
 name_value = st.text_input("이름")
-st.write("이름: " + name_value)
+if name_value:
+    st.write("이름: " + name_value)
 
 st.subheader("여러줄 텍스트 입력")
 info = st.text_area("정보", height=200)  #height 단위: pixcel
@@ -65,7 +66,7 @@ st.subheader("Select Box")
 option = st.selectbox(
     "지역을 선택하세요",
     ("서울", "인천", "부산", "광주"),
-    # index=None
+    index=None
 )
 st.write("**선택한 지역**:", option)
 

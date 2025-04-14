@@ -1,6 +1,10 @@
 from re import U
 import streamlit as st
-      
+
+# a = 20
+# a
+# True
+
 """
 # Streamlit 개요
 - Streamlit은 데이터 분석 결과, 머신러닝 모델 결과등을 빠르게 웹 애플리케이션으로 만들 수 있게 하는 파이썬 라이브러리 이다.
@@ -22,11 +26,8 @@ import streamlit as st
 """
 
 
-
-
-
 # 타이틀 입력
-st.title('이것은 타이틀 입니다')
+st.title('이것은 타이틀 입니다. :100:, 🚗🚗🚗🚗')
 
 # 이모티콘 입력
 ## streamlit 지원 이모지: https://streamlit-emoji-shortcodes-streamlit-app-gwckff.streamlit.app/
@@ -42,6 +43,7 @@ st.subheader('이것은 subheader 입니다 :100:')
 # 일반 텍스트 입력
 st.text('일반 텍스트입니다. 👌👌')
 st.text(10)
+st.text(True)
 
 # 캡션  입력
 st.caption('이것은 캡션입니다.:rainbow:')
