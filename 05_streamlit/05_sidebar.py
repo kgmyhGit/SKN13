@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-    
+      
 ############################################################
 # sidebar는 화면 왼쪽에 생기는 패널로 `st.sidebar`를 통해 정의한다.
 # sidebar에는 검색 조건과 같은 사용자 입력 항목들을 넣는다.
