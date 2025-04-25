@@ -4,9 +4,10 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import (confusion_matrix, ConfusionMatrixDisplay, 
                              recall_score, precision_score, f1_score, accuracy_score,
                              PrecisionRecallDisplay, average_precision_score, precision_recall_curve,
-                             RocCurveDisplay, roc_auc_score, roc_curve)
+                             RocCurveDisplay, roc_auc_score, roc_curve,
+                             mean_squared_error, root_mean_squared_error, r2_score)
 
-__version__ = 1.1
+__version__ = 1.2
 
 def plot_precision_recall_curve(y_proba, pred_proba, estimator_name=None, title=None):
     """Precision Recall Curve 시각화 함수
@@ -40,8 +41,7 @@ def plot_roc_curve(y_proba, pred_proba, estimator_name=None, title=None):
         estimator_name: str - 모델 이름. 시각화시 범례에 출력할 모델이름
         title: str - plot 제목
     Returns:
-    Raises:
-    """
+    Raises:"""
     ## ROC-AUC score 계산
     auc_score = roc_auc_score(y_proba, pred_proba)
     ## Thresh 변화에 따른 TPR(Recall) 과 FPR(위양성율) 계산
@@ -64,7 +64,7 @@ def plot_confusion_matrix(y, pred, title=None):
         pred: ndarray - 모델 추정결과
         title: str - 출력할 제목. default=None
     Returns:
-    Raises:
+    Raises::
     """
     cm = confusion_matrix(y, pred)
     disp = ConfusionMatrixDisplay(cm)
@@ -81,8 +81,8 @@ def print_binary_classification_metrics(y, pred, proba=None, title=None):
         pred: ndarray - 모델 추정결과
         proba: ndarray - 모델이 추정한 양성일 확률값. Default: None
         title: str - 결과에 대한 제목 default=None
-    Returns:
-    Raises:
+    Return
+    Exception
     """
     if title:
         print(title)
@@ -93,3 +93,17 @@ def print_binary_classification_metrics(y, pred, proba=None, title=None):
     if proba is not None:
         print("Average Precision:", average_precision_score(y, proba))
         print("ROC-AUC Score:", roc_auc_score(y, proba))
+
+def print_regression_metrcis(y, pred, title=None):
+    """회귀 평가지표를 출력하는 함수
+    Args:
+        y: ndarray - 정답 
+        pred: ndarray - 모델 추정값
+        title: 결과에 대한 제목. default: None
+    Returns:
+    Raises:"""
+    if title:
+        print(title)
+    print("MSE:", mean_squared_error(y, pred))
+    print("RMSE:", root_mean_squared_error(y, pred))
+    print("R Squared:", r2_score(y, pred))
