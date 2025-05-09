@@ -1,5 +1,8 @@
 api_key.json
+datasets/
+dataset/
 
+images.tar.gz
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
