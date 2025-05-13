@@ -1,6 +1,8 @@
 api_key.json
 datasets/
 dataset/
+FashionMNIST/
+*.pt
 
 images.tar.gz
 # Byte-compiled / optimized / DLL files
