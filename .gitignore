@@ -3,6 +3,7 @@ datasets/
 dataset/
 FashionMNIST/
 *.pt
+petitions_corpus.txt
 
 images.tar.gz
 # Byte-compiled / optimized / DLL files
