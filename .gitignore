@@ -1,6 +1,8 @@
+.env
 api_key.json
 datasets/
 dataset/
+models/
 FashionMNIST/
 *.pt
 petitions_corpus.txt
