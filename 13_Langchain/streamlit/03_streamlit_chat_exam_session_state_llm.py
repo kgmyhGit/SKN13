@@ -1,5 +1,5 @@
 ##################################################################
-#  streamlit/01_streamlit_chat_exam.py
+#  streamlit/03_streamlit_chat_exam_session_state_llm.py
 #  챗봇 대화 관련 위젯 
 
 # 1. chat_input() : 사용자 입력을 받는 위젯
@@ -48,33 +48,41 @@
 ##################################################################
 import streamlit as st
 import random
+QR29
 
-idx = random.randint(0, 9)
-chatbot_message_list = ["오늘 날씨가 어떤가요?",
-"점심으로 뭘 먹으면 좋을까요?",
-"집에서 할 수 있는 간단한 운동은 뭐가 있나요?",
-"요즘 인기 있는 드라마 추천해 줄 수 있나요?",
-"효과적으로 공부하려면 어떻게 해야 하나요?",
-"주말에 어디로 놀러 가면 좋을까요?",
-"잠이 안 올 때는 어떻게 하면 좋을까요?",
-"효율적으로 정리정돈을 하려면 뭐부터 해야 하나요?",
-"건강에 좋은 간식으로는 어떤 게 있나요?",
-"스트레스를 푸는 좋은 방법이 있을까요?"]
+# 프롬프트 -> LLM 요청 -> 응답 -> chat_message container에 출력
 
-ai_message = chatbot_message_list[idx]
 
-st.title("Chatbot 위젯 튜토리얼")
+st.title("Chatbot+session state 튜토리얼")
+
+# Session State를 생성
+## session_state: dictionary 구현체. 시작 ~ 종료할 때 까지 사용자 별로 유지되야 하는 값들을 저장하는 곳.
+
+# 0. 대화 내역을 session_state의 "messages":list 로 저장.
+# 1. session state에 "messages" key가 있는지 조회(없으면 생성)
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [] # 대화내용들을 저장할 리스트를 "messages" 키로 저장.
+
 
 # 사용자의 프롬프트(질문)을 입력받는 위젯
 prompt = st.chat_input("User Prompt") # 사용자가 입력한 문자열을 반환.
-print(prompt)
+
 ## 대화작업
 if prompt is not None:
-    # llm에 프롬프트를 전달 -> 응답 -> 화면에 대화내용을 출력(chat_message)
-    with st.chat_message("user"): # Container에 출력할 메세지가 누구의 것인지 지정하면서 container조회
-        st.write(prompt) # with에서 조회한 컨테이너에 출력.
+    # session_state에 messages에 대화내역을 저장.
+    st.session_state["messages"].append({"role":"user", "content":prompt})
+    st.session_state["messages"].append({"role":"ai", "content":ai_message})
 
-    with st.chat_message("AI"):
-        st.write(ai_message)
+# 대화내역을 chat_message container에 출력
+for message_dict in st.session_state['messages']:
+    with st.chat_message(message_dict['role']):
+        st.write(message_dict["content"])
 
-# streamlit run 01_streamlit_chat_exam.py
+# [
+#     {
+#     "role":"user", "content":prompt
+#     },
+#     {
+#     "role":"ai", "content": ai_message
+#     }
+# ]
