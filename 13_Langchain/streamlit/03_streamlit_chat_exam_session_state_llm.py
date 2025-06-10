@@ -47,9 +47,24 @@
 #   - https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
 ##################################################################
 import streamlit as st
-import random
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
 
 # 프롬프트 -> LLM 요청 -> 응답 -> chat_message container에 출력
+
+# LLM 모델 생성
+@st.cache_resource
+def get_llm_model():
+    load_dotenv()
+    return ChatOpenAI(model_name="gpt-4o-mini")
+
+model = get_llm_model()
+
+# if "model" not in st.session_state:
+#     st.session_state['model'] = ChatOpenAI(model_name = "gpt-4o-mini")
+# model = st.session_state['model']
+
+
 
 
 st.title("Chatbot+session state 튜토리얼")
@@ -70,6 +85,9 @@ prompt = st.chat_input("User Prompt") # 사용자가 입력한 문자열을 반�
 if prompt is not None:
     # session_state에 messages에 대화내역을 저장.
     st.session_state["messages"].append({"role":"user", "content":prompt})
+
+    # LLM 에 prompt를 전송 -> 응답 -> 사용
+    ai_message = model.invoke(prompt).content #AIMessage.content
     st.session_state["messages"].append({"role":"ai", "content":ai_message})
 
 # 대화내역을 chat_message container에 출력
