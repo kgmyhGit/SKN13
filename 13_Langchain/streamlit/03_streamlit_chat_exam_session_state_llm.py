@@ -48,7 +48,6 @@
 ##################################################################
 import streamlit as st
 import random
-QR29
 
 # 프롬프트 -> LLM 요청 -> 응답 -> chat_message container에 출력
 
