@@ -1,5 +1,5 @@
 ##################################################################
-#  streamlit/04_streamlit_chat_exam_session_state_llm_streaming.py
+ # streamlit/05_streamlit_chat_exam_session_state_llm_streaming_memory.py
 ##################################################################
 import streamlit as st
 from dotenv import load_dotenv
@@ -39,6 +39,16 @@ prompt = st.chat_input("User Prompt") # 사용자가 입력한 문자열을 반�
 if prompt is not None:
     # session_state에 messages에 대화내역을 저장.
     st.session_state["messages"].append({"role":"user", "content":prompt})
-    with st.chat_message("usser"):
+    with st.chat_message("user"):
         st.write(prompt)
-   
+    
+    with st.chat_message("ai"):
+        message_placeholder = st.empty() # update가 가능한 container
+        full_message = "" # LLM이 응답하는 토큰들을 저장할 문자열변수.
+        for token in model.stream(prompt):
+            full_message += token.content
+            message_placeholder.write(full_message) # 기존 내용을 full_message로 갱신.
+            # print(full_message)
+            # print("---------------------------------------")
+        
+        st.session_state["messages"].append({"role":"ai", "content":full_message})
