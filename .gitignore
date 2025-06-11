@@ -1,3 +1,4 @@
+*.sqlite
 .env
 api_key.json
 datasets/
