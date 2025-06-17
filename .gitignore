@@ -1,3 +1,4 @@
+vector_store/
 *.sqlite
 .env
 api_key.json
