@@ -8,8 +8,10 @@ FashionMNIST/
 *.pt
 petitions_corpus.txt
 ko_new.txt
-
 images.tar.gz
+vector_store/
+chroma/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
