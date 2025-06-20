@@ -54,7 +54,7 @@ class SearchWikiArgsSchema(BaseModel):
     query: str = Field(..., description='위키백과사전에서 검색할 키워드, 검색어')
     max_results: int = Field(default=2, description="검색할 문서의 최대개수")
 
-search_wiki = wikipedia_search.as_tool(
+search_wikipedia = wikipedia_search.as_tool(
     name="search_wikipedia", # 툴 이름.
     description=("위키 백과사전에서 정보를 검색할 때 사용하는 tool.\n"
                  "사용자의 질문과 관련된 위키백과사전의 문서를 지정한 개수만큼 검색해서 반환합니다.\n"
