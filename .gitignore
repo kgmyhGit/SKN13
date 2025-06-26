@@ -1,3 +1,4 @@
+data/
 vector_store/
 *.sqlite
 .env
