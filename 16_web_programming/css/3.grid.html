@@ -1,2 +1,27 @@
 <!-- grid.html -->
- 
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      div {border:1px solid gray}
+    </style>
+ </head>
+ <body>
+   <div class="container mt-3">
+      <div class="row">
+         <!-- col-sm-4 (sm: 너비 576px 이상일 때 4칸 공간을 차지.)-->
+         <div class="col-sm-4">A</div>
+         <div class="col-sm-4">B</div>
+         <div class="col-sm-4">C</div>
+      </div>
+      <div class="row">
+         <div class="col-4 offset-4 m-3">가운데 정렬</div>
+      </div>
+   </div>
+ </body>
+ </html>

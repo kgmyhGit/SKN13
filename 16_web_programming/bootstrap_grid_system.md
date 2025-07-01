@@ -1,4 +1,3 @@
-
 # Bootstrap
 **Grid System(그리드 시스템)은 웹 페이지를 반응형(responsive)으로 설계**할 수 있도록 도와주는 핵심적인 레이아웃 구성 방식이다.   
 HTML 요소들을 행(`row`)과 열(`column`)의 구조로 나누어, 다양한 해상도와 디바이스 크기에서 일관된 레이아웃을 유지할 수 있게 해준다.
@@ -65,6 +64,7 @@ HTML 요소들을 행(`row`)과 열(`column`)의 구조로 나누어, 다양한 
       <div class="col-6">중첩 열1</div>
       <div class="col-6">중첩 열2</div>
     </div>
+    
   </div>
   <div class="col-6">기본 열</div>
 </div>
