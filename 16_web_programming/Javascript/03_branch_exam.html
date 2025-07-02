@@ -9,7 +9,49 @@
     <body>
         <h2>조건문 예제</h2>
         <script>
-            
+            function IfExam() {
+                num_str = prompt("숫자를 입력하세요:"); // 입력값을 string으로 반환
+                num = parseInt(num_str) // 문자열->정수로 변환.
+                if (num > 0) {
+                    alert(`${num}은 양수입니다.`);
+                }else if(num < 0) {
+                    alert(`${num}은 음수입니다.`);
+                }else {
+                    alert(`${num} - 0입니다.`);
+                }
+            }
+            // IfExam();
+            function IfExam2() {
+                flag = confirm("삭제하겠습니까?");
+                if (flag) { // true: 확인, false: 취소
+                    alert("삭제되었습니다.")
+                }else {
+                    alert("삭제 취소했습니다.")
+                }
+            }
+            // IfExam2()
+            function switchExam() {
+                month = parseInt(prompt("월을 입력하세요."))
+                // if (month === 1 || month === 3 || month === 5 || month === 7, .....) {
+                //     alert('31일까지 있습니다.')
+                // }else if( month === 4 || month === 6, ...) {
+                //     alert("30일 까지 있습니다.")
+                // }
+                switch (month) {
+                    case 1:case 3:case 5:case 7:case 8:case 10:case 12:
+                        alert('31일 까지 있습니다.');
+                        break;  // switch문을 끝내라.
+                    case 4:case 6:case 9:case 11:
+                        alert('30일 까지 있습니다.');
+                        break;
+                    case 2:
+                        alert("28일 이나 29일까지 있습니다.")
+                        break;
+                    default: // if 문의 else역할
+                        alert(`${month} 는 잘못된 월입니다. 1 ~ 12 사이 정수를 넣으세요.`)
+                }
+            }
+            switchExam()
 
             
         </script>

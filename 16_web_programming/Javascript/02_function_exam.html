@@ -9,34 +9,89 @@
         <h2>함수 예제</h2>
 
         <script>
-            //1. 함수 정의
-            
-
+            //1. 함수 정의: 기능(함수)를 실행환경에 추가.
+            function hello1(){
+                alert("안녕하세요.");
+            }
+            // hello1()
+            // hello1()
             //2. parameter(매개변수) 가 있는 함수
-
-
+            function hello2(name, age){
+                info = `이름: ${name}, 나이: ${age}`;
+                alert(info);
+            }
+            // hello2("홍길동", 30);
+            // hello2("이순신"); // age->undefined
+            // hello2(age=30)//이름: 30, 나이: undefined
+            
             //3. 기본값이 있는 파라미터.
-            
-            
+            function hello3(name="무명", age=0) {
+                info = `이름: ${name}, 나이: ${age}`;
+                console.log(info);
+            }
+            // hello3("유관순", 20);
+            // hello3("유관순");
+            // hello3();
+
             //4. 반환값이 있는 함수
-            
+            function hello4(name, age){
+                info = `이름: ${name}, 나이: ${age}`;
+                return info; // return생략 -> undefined가 리턴.
+            }
 
-
+            // info = hello4("이순신", 40)
+            // alert(info)
             //5. Rest Parameter (파이썬-가변인자 *args)
             
+            function hello5(name, age, ...other) {
+                console.log(name, age);
+                console.log(other)
+            }
+            // hello5("홍길동", 30, "AB형", "170CM", "80KG", 50)
 
 
-            //6. 함수 리터럴.
-            
-
+            //6. 함수 리터럴 표현식.
+            hello7 = function (name) {
+                console.log(name)
+            }
+            // hello7("이순신")
 
             //7. 함수를 argument로 전달.
+            function calc(func) {
+                let num1 = 10;
+                let num2 = 20;
+                let result = func(num1, num2);
+                console.log("계산결과:", result)
+            }
             
-            
+            calc(function(n1, n2) {
+                return n1 + n2;
+            })
+
+            calc(function(n1, n2){
+                n1 += 10
+                n2 += 30
+                return n1 - n2
+            })
 
             //8. 화살표 함수
-            
+            let arrowFunc1 = (num1, num2) => num1 * num2;
+            console.log(arrowFunc1(100, 2));
 
+            let arrowFunc2 = num => num * 100; // 파라미터가 1개이면 ( )는 생략가능
+            console.log(arrowFunc2(20))
+
+            let arrowFunc3 = (num1, num2) => {
+                num1 *= 2
+                num2 *= 3
+                return num1 + num2
+            }
+            console.log(arrowFunc3(2, 30))
+            
+            calc((n1, n2)=>n1 / n2)
+            calc((n1, n2) => {
+                return n1 % n2
+            })
         </script>
     </body>
 </html>
