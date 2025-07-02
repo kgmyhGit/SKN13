@@ -46,7 +46,14 @@
 
                 console.log(list)
             }
-            doWhileExam()
+            // doWhileExam()
+            function forInExam() {
+                list = ["a", "b", "c", "d", "e"] // 배열-index(0~)로 값을 조회
+                for (idx in list) {  // index(원소의 식별자)
+                    console.log(idx, list[idx])
+                }
+            }
+            forInExam()
         </script>
     </body>
 </html>
