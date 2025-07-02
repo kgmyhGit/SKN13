@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h2>Javascript Object 예제</h2>
+        <script>
+            const person = {
+                name: "홍길동",
+                age: 20,
+                isMarriage: false,
+                "job name": "회사원",
+                hobby: ["게임", "스포츠"],
+                go: function (place) {
+                    alert(place + "에 간다.");
+                },
+                getInfo: function () {
+                    
+                    info = `이름: ${this.name}, 나이: ${this.age}`;
+                    return info;
+                },
+            };
+            
+            console.log(person.name, person['name'])
+            console.log(person['job name'])
+
+            p_info = person.getInfo()
+            console.log(p_info)
+            console.log(person.isMarriage?"기혼":"미혼")
+
+            person['job name'] = "사업"
+            console.log(person['job name'])
+
+            for (let key in person){
+                console.log(key);
+            }
+            console.log("=========구조분해할당")
+            let arr = [1, 2, 3, 4, 5]
+            let [v1, v2, v3, v4, v5, v6=0] = arr
+            console.log(v1, v2, v3, v4, v5, v6)
+            let {name, age} = person
+            console.log(name, age)
+            let {name:p_name, age:p_age} = person
+            console.log(p_name, p_age)
+        </script>
+    </body>
+</html>
