@@ -45,65 +45,68 @@
                 console.log(arr);
                 console.log("배열 크기 : " + arr.length);
 
-                // let v1 = arr.pop();
-                // let v2 = arr.shift();
-                // console.log(v1, v2);
-                // console.log(arr);
+                let v1 = arr.pop();
+                let v2 = arr.shift();
+                console.log(v1, v2);
+                console.log(arr);
 
-                // let v3 = arr.splice(1, 2);
-                // console.log(`splice(2,3): ${v3}`);
-                // console.log(arr);
+                let v3 = arr.splice(1, 2);
+                console.log(`splice(1,2): ${v3}`);
+                console.log(arr);
 
-                // arr.push("마지막값");
-                // console.log(arr);
-                // arr.unshift("첫번째 값");
-                // console.log(arr);
+                arr.push("마지막값");
+                console.log(arr);
+                arr.unshift("첫번째 값");
+                console.log(arr);
 
-                // arr.splice(2, 0, "삽입할 값", 1, 2, 3, 4, 5); //중간 삽입
-                // console.log(arr);
+                // splice(시작index, 대체할 값의 개수, 삽입할 값들)
+                arr.splice(2, 0, "삽입할 값", 1, 2, 3, 4, 5); //중간 삽입
+                console.log(arr);
             }
             function arrayExam2() {
                 let arr = ["a", "b", "c", "d", "e"];
                 console.log(arr[0], arr[2]);
 
-                // arr[1] = "가";
-                // console.log(arr);
-                // arr[7] = "나";
-                // console.log(arr);
+                arr[1] = "가";
+                console.log(arr);
+                arr[7] = "나";
+                console.log(arr);
+                console.log(arr[6]);
 
-                // console.log(arr[6]);
-
-                // for (i = 0; i < arr.length; i++) {
-                //     console.log(arr[i]);
-                // }
-                // console.log("for in statement")
-                // for (i in arr) {
-                //     console.log(i, arr[i]);
-                // }
+                for (i = 0; i < arr.length; i++) {
+                    console.log(arr[i]);
+                }
+                console.log("for in statement")
+                for (i in arr) {
+                    console.log(i, arr[i]);
+                }
             }
 
             function dateExam() {
-                let today = new Date();
-                console.log(today);
-                let today_str = dateToString(today);
-                console.log(today_str);
+                let today = new Date(); // 실행시점의 일시를 가지는 Date 객체
+                // console.log(today);
+                // let today_str = dateToString(today);
+                // console.log(today_str);
+                // let dt = new Date(2010, 10, 11, 17, 20, 30) // 11월
+                let dt = new Date(2010, 10, 11);
+                console.log(dateToString(dt));
             }
             function dateToString(dt) {
-                let year = dt.getFullYear();
+                let year = dt.getFullYear(); // 년도 4자리
 
-                let month = dt.getMonth() + 1;
+                let month = dt.getMonth() + 1;  // 월: 0 ~ 11
                 if (month < 10) month = "0" + month;
 
-                let date = dt.getDate();
+                let date = dt.getDate(); // 일  
                 if (date < 10) date = "0" + date;
 
-                let hour = dt.getHours();
+                let hour = dt.getHours(); // 시간
                 if (hour < 10) hour = "0" + hour;
 
-                let minute = dt.getMinutes();
+                let minute = dt.getMinutes();//분
                 if (minute < 10) minute = "0" + minute;
 
-                let second = dt.getSeconds();
+                let second = dt.getSeconds();//초
                 if (second < 10) second = "0" + second;
 
                 return `${year}/${month}/${date} ${hour}:${minute}:${second}`;
