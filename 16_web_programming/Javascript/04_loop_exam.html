@@ -8,7 +8,45 @@
     <body>
         <h2>반복문 예제</h2>
         <script>
-            
+            function whileExam(num) {
+                // 빈배열에 받은 num을 10개 저장.
+                let list = []; //  빈배열
+                let count = 0; // 초기식(조건에서 사용할 변수)
+                while (count < 10) { // 조건식
+                    list.push(num); //배열에 값을 추가.
+                    count++;  // 증감식 (조건에서 사용하는 변수의 값을 변경.)
+                }
+                console.log(list)
+            }
+            // whileExam(20)
+            function forExam(num) {
+                list = []
+                for(let count = 0; count < 10; count++) {
+                    list.push(num+count)
+                }
+                console.log(list)
+            }
+            // forExam(3)
+            function doWhileExam() {
+                // while/for문 : 0회 이상 반복.
+                // do while문: 1회 이상 반복.
+                list = []  
+                // 사용자로 부터 숫자입력 받아서 짝수는 저장. 홀수가 입력되면 종료
+                // num = parseInt(prompt("숫자"))
+                // while (num % 2 === 0)
+                //     list.push(num)
+                //     num = parseInt(prompt("숫자"))
+                do {
+                    num = parseInt(prompt("저장할 짝수를 입력하세요. 홀수 입력하면 종료합니다."));
+                    if (num % 2 !== 0) {
+                        break; // 반복문 안에 break -> 반복문을 빠져 나와라.
+                    }
+                    list.push(num)
+                }while (true);
+
+                console.log(list)
+            }
+            doWhileExam()
         </script>
     </body>
 </html>
