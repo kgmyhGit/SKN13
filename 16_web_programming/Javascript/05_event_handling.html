@@ -22,7 +22,7 @@
         <div class="container">
             <div
                 id="layer"
-                onmouseover='console.log("마우스 IN")'
+                onmouseover='console.log("마우스 IN");'
                 onmouseout='console.log("마우스out")'
                 onclick='alert("클릭")'
                 onmousemove="mouseMove()"
@@ -34,6 +34,7 @@
                 method="post"
                 id="form"
                 class="mt-5"
+                onsubmit="return checkForm()"
             >
                 <div>
                     <label for="name" class="form-label">이름:</label>
@@ -42,12 +43,13 @@
                         name="name"
                         id="name"
                         class="form-control"
+                        placeholder="이름 입력"
                     />
                 </div>
                 <div>
-                    <label for="age" class="form-label">나이</label>
+                    <label for="age" class="form-label">나이:</label>
                     <input
-                        type="text"
+                        type="number"
                         name="age"
                         id="age"
                         class="form-control"
@@ -59,6 +61,8 @@
                         value="등록 폼 Submit 버튼"
                         class="btn btn-primary"
                     />
+                    <button type="submit" class="btn btn-primary">등록</button>
+                    <button type="reset">초기화</button>
                 </div>
             </form>
         </div>
@@ -67,11 +71,12 @@
                 event = event || window.event;
                 console.log(event.clientX, event.clientY);
             }
-
+            
+            
             function checkForm() {
-                nameTF = document.getElementById("name");
+                nameTF = document.getElementById("name"); // id가 name인 태그를 조회.
                 ageTF = document.getElementById("age");
-                name = nameTF.value;
+                name = nameTF.value;  // input 태그에 입력된 값을 조회.
                 age = ageTF.value;
 
                 if (!name) {
@@ -79,7 +84,7 @@
                     nameTF.focus();
                     return false;
                 } else {
-                    if (name.length > 5) {
+                    if (name.length > 5) {  // string.length - 글자수 반환.
                         alert("이름은 5글자까지 가능합니다.");
                         nameTF.value = "";
                         nameTF.focus();
@@ -91,8 +96,8 @@
                     ageTF.focus();
                     return false;
                 } else {
-                    ageNum = parseInt(age);
-                    if (!ageNum) {
+                    ageNum = parseInt(age); // 숫자가 아닌 문자열 -> NaN -> false
+                    if (!ageNum) {  // isNaN(ageNum) -> NaN: True
                         alert("나이는 숫자만 가능합니다.");
                         ageTF.value = "";
                         ageTF.focus();

@@ -18,7 +18,9 @@
                     alert(place + "에 간다.");
                 },
                 getInfo: function () {
-                    
+                    // 메소드에서 다른 property들(instance변수/instance 메소드)에 접근
+                    // this.변수명, this.메소드()
+                    // this : 메소드를 소유한 객체를 가리킨다. (파이썬: self 역할.3)
                     info = `이름: ${this.name}, 나이: ${this.age}`;
                     return info;
                 },
@@ -33,18 +35,21 @@
 
             person['job name'] = "사업"
             console.log(person['job name'])
+            person.isMarriage = true
+            console.log(person)
 
-            for (let key in person){
+            for (let key in person){  // property name을 반환.
                 console.log(key);
             }
             console.log("=========구조분해할당")
-            let arr = [1, 2, 3, 4, 5]
+            let arr = [1, 2, 3, 4, 5, 6]
             let [v1, v2, v3, v4, v5, v6=0] = arr
             console.log(v1, v2, v3, v4, v5, v6)
             let {name, age} = person
             console.log(name, age)
-            let {name:p_name, age:p_age} = person
-            console.log(p_name, p_age)
+            // name property의 값을 p_name 변수에 저장
+            let {name:p_name, age:p_age, hobby:p_hobby} = person 
+            console.log(p_name, p_age, p_hobby)
         </script>
     </body>
 </html>

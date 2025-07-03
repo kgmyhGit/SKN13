@@ -21,19 +21,25 @@
                 <div class="btn-group mt-1">
                     <input type="button" onclick="sendForm(1)" value="등록" class="btn btn-primary" />
                     <input type="button" onclick="sendForm(2)" value="수정" class="btn btn-primary" />
+                    <input type="button" onclick="formReset()" value="초기화">
                 </div>
             </form>
         </div>
         <script>
+            function formReset() {
+                document.f1.reset();
+            }
             function sendForm(flag) {
-                let f1 = document.f1; 
-                if (flag === 1) {
-                    f1.action = "/add";
-                    f1.method = "post";
-                }else if (flag === 2) {
-                    f1.action = "/update";
-                }
+                let f1 = document.f1; //<form name="f1">
 
+                if (flag === 1) {
+                    f1.action = "/add"; //<form name="f1" action="/add">
+                    f1.method = "post"; //<form name="f1" action="/add" method="post">
+                }else if (flag === 2) {
+                    f1.action = "/update";//<form name="f1" action="/update" method="get">
+                }
+                //form안의 입력노드에 접근
+                //   form객체.입력객체의 이름
                 let id_value = f1.id.value;
                 let pwd_value = f1.password.value;
 
@@ -47,9 +53,9 @@
                     f1.password.focus();
                     return;
                 }
-
                 f1.submit()
             }
+            
         </script>
     </body>
 </html>

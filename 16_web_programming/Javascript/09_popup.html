@@ -9,7 +9,7 @@
     </head>
     <body class="p-2">
         <h2>주소검색결과</h2>
-        동 <input type="text" name="dong" class="form-control" />
+        동: <input type="text" name="dong" class="form-control" />
         <input type="button" value="조회" class="btn btn-primary col-12" />
 
         <ul class="list-group">
@@ -26,6 +26,7 @@
 
         <script>
             function showAddress(zipcode, address) {
+                // opener: 현재창이 팝업일 때 이 팝업을 띄운 부모창의 window.
                 opener.document.f1.zipcode.value = zipcode;
                 opener.document.f1.address.value = address;
                 window.close();
