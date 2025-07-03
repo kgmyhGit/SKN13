@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Insert title here</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    </head>
+    <body class="container mt-3">
+		<div>
+            <input type="button" onclick="appendChildTest()" value="P 요소 추가" />
+            <input type="button" onclick="insertBeforeTest()" value="P 요소 삽입" />
+            <input type="button" onclick="innerHTMLtest()" value="innerHTMLtest" />
+        </div>
+        <div>
+            <input type="text" id="idx" placeholder="삭제할 노드 Index을 적으세요" />
+            <input type="button" onclick="deleteNodeByIdx();" value="n번째 노드 삭제" />
+            <input type="button" onclick="deleteAllNode	()" value="모든 노드 삭제" />
+        </div>
+		<hr>
+        <div id="layer">
+            <p style="background-color: blue">1번 라인</p>
+            <p style="background-color: red">2번 라인</p>
+            <p style="background-color: yellow">3번 라인</p>
+            <p style="background-color: green">4번 라인</p>
+        </div>
+        
+        <div id="layer2"></div>
+
+        <script>
+            
+            function appendChildTest() {
+                // 추가할 기준 부모노드를 조회.
+                let layer = document.getElementById("layer");
+                //추가할 노드를 생성.
+                let p = document.createElement("p"); // <p>
+                p.style = "background-color:orange;color:white;" // <p style="...">
+
+                // text 노드 생성
+                let txt = document.createTextNode("New Line"); // New Line
+                // p에 txt를 추가.
+                p.appendChild(txt); //<p style="..">New Line</p>
+
+                // p를 layer에 추가
+                layer.appendChild(p);
+            }
+            function insertBeforeTest() {
+                // 추가할 기준 부모노드를 조회.
+                let layer = document.getElementById("layer");
+                //추가할 노드를 생성.
+                let p = document.createElement("p"); // <p>
+                p.style = "background-color:black;color:white;" // <p style="...">
+
+                // text 노드 생성
+                let txt = document.createTextNode("New Insert Line"); // New Line
+                // p에 txt를 추가.
+                p.appendChild(txt); //<p style="..">New Line</p>
+				
+                // 삽입
+                // layer.insertBefore(p, layer.firstChild)
+                // layer의 첫번째 자식노드 자리에 p를 삽입.
+                layer.insertBefore(p, layer.children[1]); // 두번째 자식노드로 삽입
+            }
+            function deleteAllNode() {
+                // 특정 노드의 모든 자식노드들을 삭제.
+                let layer = document.getElementById("layer");
+                while (layer.hasChildNodes()) {
+                    layer.removeChild(layer.firstChild);
+                }
+				
+            }
+            function deleteNodeByIdx() {
+                //삭제할 index 조회.
+                let delIdx = document.getElementById("idx"); 
+                if (isNaN(delIdx.value)) { // true: 숫자형태 문자열이 아님.
+                    delIdx.value = ""; //입력된 값을 삭제.
+                    delIdx.focus();
+                    alert("삭제할 index는 숫자를 입력하세요");
+                    return;
+                }
+                //삭제할 노드의 부모노드 조회.
+                let layer = document.getElementById("layer");
+                //삭제
+                layer.removeChild(layer.children[delIdx.value]);
+				
+            }
+            function innerHTMLtest() {
+                let layer = document.getElementById("layer");
+                // let txt = layer.innerHTML; // 태그 내의 내용을 text로 반환.
+                // console.log(typeof txt, txt);
+                let txt = layer.children[0].innerHTML;
+                console.log(txt);
+				
+                // layer2의 내용을 변경.
+                let layer2 = document.getElementById("layer2");
+                layer2.innerHTML = `
+                    <h2>입력하세요</h2>
+                    나이: <input type="text" name="age">
+                    주소: <input type="text" name="address">
+                    <button type="submit">전송송</button>
+                `;
+            }
+        </script>
+    </body>
+</html>
