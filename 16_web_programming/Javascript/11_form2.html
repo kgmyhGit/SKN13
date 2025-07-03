@@ -10,6 +10,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
+        <input type="checkbox" name="abc" value="yes"> 광고 수신 여부
         <div class="container mt-3">
             <form name="f1">
                 취미를 선택하세요 (1개 이상선택)
@@ -19,7 +20,7 @@
                 </div>
                 <div>
                     <input type="checkbox" name="hobby" value="음악" class="form-check-input" />
-                    <lael>음악</lael>
+                    <label>음악</label>
                 </div> 
                 <div>
                     <input type="checkbox" name="hobby" value="운동" class="form-check-input" />
@@ -46,11 +47,15 @@
 
         <script>
             function checkHobby() {
-                hobbyList = document.f1.hobby;
-                let cnt = 0;
-                for (let idx in hobbyList) {
+                // hobby이름의 노드가 여러개 조회 -> Node List로 반환.
+                // 노드들을 배열에 담어서 반환.
+                hobbyList = document.f1.hobby; //[cb, cb, cb, cb, cb]
+                console.log(hobbyList)
 
-                    if (hobbyList[idx].checked) {
+                let cnt = 0; //체크된 checkbox의 개수
+                for (let idx in hobbyList) {
+                    //checkbox.checked: true-check상태, false-uncheck상태
+                    if (hobbyList[idx].checked) { 
                         cnt++; 
                     }
                 }
@@ -64,8 +69,9 @@
 
             function checkAll() {
                 let flag = document.f1.allCheck.checked;
-                
-                hobbyList = document.f1.hobby;
+                console.log(flag)
+
+                hobbyList = document.f1.hobby;// [cb, cb, cb, cb, cb]
                 for (let idx in hobbyList) {
                     hobbyList[idx].checked = flag;
                 }

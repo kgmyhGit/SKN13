@@ -11,6 +11,7 @@
         <div class="container mt-5">
             <input type="button" onclick="windowExam()" value="windowExam" class="btn btn-dark" />
             <input type="button" onclick="window.close()" value="닫기" class="btn btn-dark" />
+            
             <hr />
             <form action="#" method="post" name="f1">
                 우편번호: <input type="text" name="zipcode" class="form-control" /> 
@@ -20,14 +21,19 @@
         </div>
         <script>
             function windowExam() {
-                let v = window.parseInt("10");
+                let v = window.parseInt("10"); // "10" -> 10
                 v = parseFloat("30.27")
                 console.log(v+20)
-                console.log(isNaN("가나다"), isNaN("3000"))
+                // NaN -> Not a Number - 숫자 형식의 문자열이 아닌가?
+                console.log(window.isNaN("가나다"), isNaN("3000"))
             }
 
             function popupAddress() {
-                window.open("09_popup.html", "address_popup", "width=500,height=400");
+                window.open(
+                    "09_popup.html", // 팝업창에서 보여줄 화면의 url
+                    "address_popup", // 팝업창의 이름. 같은 이름의 창이 이미 있으면 그창에 띄우고 없으면 새로 창을 실행한다.
+                    "width=500,height=400" //팝업창 설정.
+                );
             }
         </script>
     </body>

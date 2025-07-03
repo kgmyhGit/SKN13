@@ -41,14 +41,15 @@
             for (let key in person){  // property name을 반환.
                 console.log(key);
             }
-            // console.log("=========구조분해할당")
-            // let arr = [1, 2, 3, 4, 5]
-            // let [v1, v2, v3, v4, v5, v6=0] = arr
-            // console.log(v1, v2, v3, v4, v5, v6)
-            // let {name, age} = person
-            // console.log(name, age)
-            // let {name:p_name, age:p_age} = person
-            // console.log(p_name, p_age)
+            console.log("=========구조분해할당")
+            let arr = [1, 2, 3, 4, 5, 6]
+            let [v1, v2, v3, v4, v5, v6=0] = arr
+            console.log(v1, v2, v3, v4, v5, v6)
+            let {name, age} = person
+            console.log(name, age)
+            // name property의 값을 p_name 변수에 저장
+            let {name:p_name, age:p_age, hobby:p_hobby} = person 
+            console.log(p_name, p_age, p_hobby)
         </script>
     </body>
 </html>

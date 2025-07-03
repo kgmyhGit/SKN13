@@ -24,17 +24,18 @@
         <script>
             function get_item() {
 
-                let sel = document.f1.phone;
-                let selIndex = sel.selectedIndex;
+                let sel = document.f1.phone;      // <select>
+                let selIndex = sel.selectedIndex; // 선택된 <option>의 index
                 console.log("선택된 index:", selIndex);
                 
-                let optionList = sel.options;
-
-                for (let idx in optionList) {
-                    console.log(optionList[idx].value, optionList[idx].text)
-                }
+                let optionList = sel.options; // option객체들을 배열에 담아 반환.
+                // <option value=value>text</option>
+                // for (let idx in optionList) {
+                //     console.log(optionList[idx].value, optionList[idx].text)
+                // }
                 let selValue = sel.options[selIndex].value
-                console.log("선택된 option의 value:", selValue);
+                let selText =  sel.options[selIndex].text
+                console.log("선택된 option의 value:", selValue, selText);
 
             }
 
