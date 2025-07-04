@@ -36,18 +36,20 @@ XMLHttpRequest 객체
         <script>
             function ajaxRequest() {
                 const xhr = new XMLHttpRequest();
-                
+                // HTTP요청방식, URL, 비동기처리 여부(true: 비동기, false: 동기)
                 xhr.open("GET", "https://httpbin.org/get", true);
 
+                //callback 메소드 onload 정의 - 서버로 부터 응답이 오면 호출되는 메소드.
                 xhr.onload = function() {
-
+                    // method내에서 this -> (self) 메소드를 가진 객체(xhr)
+                    // 서버로부터의 응답데이터는 xhr객체의 property로 저장되있다.
                     if (this.status == 200) {
-                    
-                        let jsonResult = JSON.parse(this.responseText);
+                        //응답데이터: this.responseText (string)
+                        let jsonResult = JSON.parse(this.responseText); //json 문자열 -> js객체
+                        // 변환된 JS객체에서 필요한 정보들을 추출 -> 화면구성.
                         let origin = jsonResult['origin'];
                         let url = jsonResult["url"];
-                        let result = `<b>Origin:</b> ${origin}<br>
-                                    <b>URL:</b> ${url}`;
+                        let result = `<b>Origin:</b> ${origin}<br><b>URL:</b> ${url}`;
                                 
                         let div = document.getElementById("res");
                         div.innerHTML = result;
