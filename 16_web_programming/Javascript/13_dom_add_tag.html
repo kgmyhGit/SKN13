@@ -23,11 +23,16 @@
         </form>
         <script>
             function addTag() {
-                let textInput = document.createElement("input");
-                textInput.setAttribute("type", "text");
-                textInput.name = "tag";
-                textInput.className = "col";
-                
+                let textInput = document.createElement("input");//<input>
+                textInput.setAttribute("type", "text");//<input type="text">
+                // textInput.type="text"
+                textInput.name = "tag"; //<input type="text" name="tag">
+                textInput.className = "col"; 
+                // <input type="text" name="tag" class="col">
+                // textInput.className = "col2"     // class를 변경.
+                // textInput.classList.add("col2")  // class를 추가.
+
+                // 추가할 대상 부모노드를 조회.
                 let layer = document.querySelector("div#layer");
 
                 layer.appendChild(textInput);

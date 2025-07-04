@@ -41,7 +41,9 @@
         </div>
         <script type="text/javascript">
             function searchByName() {
-                let nodeList = document.getElementsByName("name");
+                // name="name"
+                // 반환타입: 배열 [EN, EN, EN, ..]
+                let nodeList = document.getElementsByName("name"); 
                 for (let idx in nodeList) {
                     nodeList[idx].value = `안녕하세요. ${idx}`; 
                     if (idx == 3) {
@@ -51,22 +53,26 @@
                 
             }
             function searchById() {
-                let myid = document.getElementById("myid");
+                // let myid = document.getElementById("myid"); // id가 myid인 노드를 조회.
+                let myid = document.querySelector("#myid")
                 myid.value = "선택된 태그."
                 myidParent = myid.parentNode;
                 console.log(myidParent);
                 myidParent.style = "background-color:gray;color:white;"
             }
-
+            
             function searchByTagName(tagName) {
-                let nodeList = document.getElementsByTagName(tagName);
+                // let nodeList = document.getElementsByTagName(tagName);
+                let nodeList = document.querySelectorAll(tagName)
                 for (let idx in nodeList) {
                     nodeList[idx].value = `${tagName} - ${nodeList[idx].nodeName}`
                 }
             }
 
             function searchByClassName(className) {
-                let nodeList = document.getElementsByClassName(className);
+                // let nodeList = document.getElementsByClassName(className);
+                let nodeList = document.querySelectorAll("."+className)
+                // ".pink_color"
                 for (let idx in nodeList) {
                     nodeList[idx].style = "background-color:pink;";
                 }

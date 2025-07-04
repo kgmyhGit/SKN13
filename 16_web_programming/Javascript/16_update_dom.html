@@ -53,26 +53,26 @@
                 p.style = "background-color:black;color:white;" // <p style="...">
 
                 // text 노드 생성
-                let txt = document.createTextNode("New Insert Line"); // New Line
+                let txt = document.createTextNode("New Insert Line"); // New Insert Line
                 // p에 txt를 추가.
-                p.appendChild(txt); //<p style="..">New Line</p>
+                p.appendChild(txt); //<p style="..">New Insert Line</p>
 				
                 // 삽입
-                // layer.insertBefore(p, layer.firstChild)
                 // layer의 첫번째 자식노드 자리에 p를 삽입.
-                layer.insertBefore(p, layer.children[1]); // 두번째 자식노드로 삽입
+                // layer.insertBefore(p, layer.firstChild)
+                layer.insertBefore(p, layer.children[2]); // 두번째 자식노드로 삽입
             }
             function deleteAllNode() {
                 // 특정 노드의 모든 자식노드들을 삭제.
                 let layer = document.getElementById("layer");
-                while (layer.hasChildNodes()) {
+                while (layer.hasChildNodes()) { // 자식노드들이 있는 동안
                     layer.removeChild(layer.firstChild);
                 }
 				
             }
             function deleteNodeByIdx() {
                 //삭제할 index 조회.
-                let delIdx = document.getElementById("idx"); 
+                let delIdx = document.getElementById("idx"); // Element Node
                 if (isNaN(delIdx.value)) { // true: 숫자형태 문자열이 아님.
                     delIdx.value = ""; //입력된 값을 삭제.
                     delIdx.focus();
@@ -85,20 +85,24 @@
                 layer.removeChild(layer.children[delIdx.value]);
 				
             }
+            
             function innerHTMLtest() {
                 let layer = document.getElementById("layer");
-                // let txt = layer.innerHTML; // 태그 내의 내용을 text로 반환.
-                // console.log(typeof txt, txt);
-                let txt = layer.children[0].innerHTML;
-                console.log(txt);
+                let txt = layer.innerHTML; // 태그 내의 내용을 text로 반환.
+                console.log(typeof txt);
+                console.log(txt)
+                // layer.innerHTML = "<b>안녕</b>"
+                let txt2 = layer.children[0].innerHTML;
+                console.log(txt2);
 				
                 // layer2의 내용을 변경.
                 let layer2 = document.getElementById("layer2");
                 layer2.innerHTML = `
                     <h2>입력하세요</h2>
+                    <form>
                     나이: <input type="text" name="age">
                     주소: <input type="text" name="address">
-                    <button type="submit">전송송</button>
+                    <button type="submit">전송</button></form>
                 `;
             }
         </script>
