@@ -22,6 +22,12 @@ class Question(models.Model):
     # auto_now - insert/update 할 때 시점의 일시를 자동으로 저장(수정일시)
 
     # default: not null. Field에서 nullable 설정-> null=True
+   
+    def __str__(self):
+        # 모델 instance를 출력/문자열로변환 할때 나올 값을 str로 반환.
+        # self.Field 명 -> Field(테이블 컬럼)의 값
+        # self.pk -> Primary key Field의 값을 반환.
+        return f"{self.pk}. {self.question_text}"
 
 
 # Choice(질문의 보기들을 저장할 Model)
@@ -34,7 +40,10 @@ class Choice(models.Model):
         on_delete=models.CASCADE, # 부모 테이블에서 참조하는 값이 삭제되면 같이 삭제. (models.SET_NULL - NULL로 업데이트)
     )
     # FK 설정 - ForeignKey(참조 Model클래스, on_delete설정)
+    # class Meta:
+    #     db_table="테이블이름"
+    def __str__(self):
+        return f"{self.pk}. {self.choice_text}"
 
-
-# python manage.py makemigrations
+# python manage.py makemigrations   [polls]
 # python manage.py migrate
