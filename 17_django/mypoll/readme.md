@@ -1,6 +1,6 @@
 1.	프로젝트
    - 이름: mypoll
-   - 설정파일 디렉토리: config 
+   - 설정파일 디렉토리: config
    -  `django-admin  startproject  config  .`
 2.	App 생성
   - polls

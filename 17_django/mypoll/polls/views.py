@@ -27,7 +27,7 @@ def welcome_poll(request):
     response = render(
         request,              # HttpRequest
         "polls/welcome.html", # template파일의 경로(app_directory/templates 이후 경로)
-        {"now": now} 
+        {"now": now, "name":"홍길동"} 
         # view가 template에 전달할 값들을 dictionary에 name-value 로 묶어서 전달.
         #    -> context value라고 한다.
     )
