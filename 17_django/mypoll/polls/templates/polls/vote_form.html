@@ -1,0 +1,32 @@
+<!-- polls/templates/polls/vote_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문폼</title>
+</head>
+<body>
+<h1>설문</h1>
+<h2>질문: {{question.pk}}. {{question.question_text}}</h2>
+설문등록일시: {{question.pub_date}}
+
+{% if error_message %}
+    <div style="color:red;font-size:0.8em">
+        {{error_message}}
+    </div>
+{% endif %}
+
+<form action="/polls/vote" method="post">
+    {% csrf_token %}  <!--post 요청일 경우 필수로 csrf_token 태그를 사용.-->
+
+    <input type="hidden" name="question_id" value="{{question.pk}}">
+    {% for choice in question.choice_set.all %}
+        <label for="{{choice.pk}}">{{choice.choice_text}}</label>
+        <input type="radio" name="choice" value="{{choice.pk}}" id="{{choice.pk}}"><br>
+    {% endfor %}
+    <button type="submit">투표</button>
+    <button type="reset">선택해제</button>
+</form>
+</body>
+</html>

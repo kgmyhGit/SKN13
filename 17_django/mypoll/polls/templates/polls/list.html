@@ -1,0 +1,18 @@
+<!-- polls/templates/polls/list.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문 목록</title>
+</head>
+<body>
+    <h1>설문 목록</h1>
+    <!-- Context Value을 출력 -->
+    {% for question in question_list %}
+        <a href="/polls/vote_form/{{question.pk}}">
+            {{question.pk}}. {{question.question_text}}
+        </a><br>
+    {% endfor %}
+</body>
+</html>
