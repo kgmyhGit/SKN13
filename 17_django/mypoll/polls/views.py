@@ -5,7 +5,7 @@
 ## 2. urls.py에 설정(url-view함수 매핑), 
 ## 3. template(응답화면이 있는 경우)
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from datetime import datetime 
 from .models import Question, Choice # 모델 클래스들 import
@@ -101,9 +101,14 @@ def vote(request):
         choice = Choice.objects.get(pk=choice_id)
         choice.votes += 1
         choice.save()
-        # 응답페이지이동 -> Question객체
-        question = Question.objects.get(pk=question_id)
-        return render(request, "polls/vote_result.html", {"question":question})
+        # # 응답페이지이동 -> Question객체
+        # question = Question.objects.get(pk=question_id)
+        # return render(request, "polls/vote_result.html", {"question":question})
+
+        # vote_result를 요청하도록 응답. - http응답 상태코드: 302, 이동할 url  ==> redirect()
+        response = redirect(f"/polls/vote_result/{question_id}")
+        print(type(response))
+        return response
     
     else: # 선택 안된 경우(예외상황) -> vote_form.html 이동
         question = Question.objects.get(pk=question_id)
@@ -112,3 +117,15 @@ def vote(request):
             "polls/vote_form.html", 
             {"question": question, "error_message":"보기를 선택하세요."}
         )
+    
+
+#################################
+# question_id를 받아서 그 질문의 투표 결과를 응답하는 View
+#
+# URL: polls/vote_result/질문_id
+# view: vote_result
+# 응답 template: polls/vote_result.html
+
+def vote_result(request, question_id):
+    question = Question.objects.get(pk=question_id)
+    return render(request, "polls/vote_result.html", {"question":question})
