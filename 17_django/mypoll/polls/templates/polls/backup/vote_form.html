@@ -7,8 +7,8 @@
     <title>설문폼</title>
 </head>
 <body>
-<a href="{% url 'polls:vote_create' %}">설문등록</a>
-<a href="{% url 'polls:list' %}">설문목록</a>
+<a href="/polls/vote_create">설문등록</a>
+<a href="/polls/list">설문목록</a>
 <hr>
 
 <h1>설문</h1>
@@ -21,7 +21,7 @@
     </div>
 {% endif %}
 
-<form action="{% url 'polls:vote' %}" method="post">
+<form action="/polls/vote" method="post">
     {% csrf_token %}  <!--post 요청일 경우 필수로 csrf_token 태그를 사용.-->
 
     <input type="hidden" name="question_id" value="{{question.pk}}">

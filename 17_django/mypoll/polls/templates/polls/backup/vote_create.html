@@ -1,0 +1,52 @@
+<!--polls/templates/polls/vote_create.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문 등록</title>
+</head>
+<body>
+<a href="/polls/vote_create">설문등록</a>
+<a href="/polls/list">설문목록</a>
+<hr>
+<h1>설문 질문 등록</h1>
+<!-- ACTION 생략: 현재 url로 요청. form요청, 등록 처리가 같은 url이기 때문에 action을 생략 -->
+<form method="post">
+    {% csrf_token %}
+    <h2>질문</h2>
+    <input type="text" name="question_text" required>
+    <h2>보기</h2>
+    <div id="choice_layer">
+        <input type="text" name="choice_text" required>
+    </div>
+    <div>
+        <button type="button" onclick="addChoice();">보기추가</button>
+        <button type="button" onclick="delChoice();">보기삭제</button>
+        <button type="submit">문제등록</button>
+    </div>
+</form>
+<script>
+    function addChoice() {
+        // 보기 입력 input form을 추가하는 함수.
+        input = document.createElement("input");  // <input>
+        input.setAttribute("type", "text");       // <input type="text">
+        input.setAttribute("name", "choice_text");// <input type="text" name="choice_text">
+        input.setAttribute("required", true); //<input type="text" name="choice_text" required>
+    
+        div = document.getElementById("choice_layer");
+        div.append(input);
+    }
+    function delChoice() {
+        // 보기 입력 input form이 두개 이상일때 마지막 입력form을 제거하는 함수. 
+        // 하나만 있을 경우는 삭제하지 않도록 처리.
+        div = document.getElementById("choice_layer");
+        if (div.children.length >= 2) {
+            div.removeChild(div.lastChild);
+        }else { // 한개만 있는 경우
+            alert("보기가 하나일 경우 삭제할 수없습니다.");
+        }
+    }
+</script>
+</body>
+</html>

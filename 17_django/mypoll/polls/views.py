@@ -7,6 +7,7 @@
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import reverse # urls.py의 path이름으로 설정된 url을 조회하는 메소드
 from datetime import datetime 
 from .models import Question, Choice # 모델 클래스들 import
 
@@ -106,7 +107,10 @@ def vote(request):
         # return render(request, "polls/vote_result.html", {"question":question})
 
         # vote_result를 요청하도록 응답. - http응답 상태코드: 302, 이동할 url  ==> redirect()
-        response = redirect(f"/polls/vote_result/{question_id}")
+        # response = redirect(f"/polls/vote_result/{question_id}")
+        url = reverse("polls:vote_result", args=[question_id])  # app_name이 polls인 urls.py에서 name=vote_result인 설정의 url을 조회
+        print("reverse()가 생성한 url:", type(url), url)
+        response = redirect(url)
         print(type(response))
         return response
     
@@ -118,14 +122,46 @@ def vote(request):
             {"question": question, "error_message":"보기를 선택하세요."}
         )
     
-
 #################################
 # question_id를 받아서 그 질문의 투표 결과를 응답하는 View
 #
 # URL: polls/vote_result/질문_id
 # view: vote_result
 # 응답 template: polls/vote_result.html
-
 def vote_result(request, question_id):
     question = Question.objects.get(pk=question_id)
     return render(request, "polls/vote_result.html", {"question":question})
+
+####################################################
+# 설문 질문 등록
+#  
+#  요청 url: polls/vote_create
+#  view 함수: vote_create
+##   -  GET방식요청 : 등록 폼을 제공
+##   -  POST방식요청: 등록 처리
+#  응답 template
+##    - GET방식요청 : polls/vote_create.html
+##    - POST방식요청: list로 이동 => redirect 방식으로 이동.
+
+# HTTP 요청방식 조회 - HttpRequest.method => "GET", "POST"
+
+def vote_create(request):
+    http_method = request.method
+    if http_method == "GET":
+        return render(request, "polls/vote_create.html")
+    elif http_method == "POST":
+        # 요청파라미터 읽기 - 질문, 보기들
+        question_text = request.POST.get("question_text")
+        # 같은이름으로 여러개 값이 전달된 경우 getlist("요청파라미터이름"): list
+        choice_list = request.POST.getlist("choice_text")
+
+        #  DB에 저장
+        q = Question(question_text=question_text)
+        q.save()
+        for choice_text in choice_list:
+            c = Choice(choice_text=choice_text, question=q)
+            c.save()
+
+        #  응답 - list로 redirect방식으로 이동.
+        # return redirect("/polls/list")
+        return redirect(reverse("polls:list"))

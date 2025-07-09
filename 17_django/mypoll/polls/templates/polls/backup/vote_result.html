@@ -7,8 +7,8 @@
     <title>투표 결과</title>
 </head>
 <body>
-<a href="{% url 'polls:vote_create' %}">설문등록</a>
-<a href="{% url 'polls:list' %}">설문목록</a>
+<a href="/polls/vote_create">설문등록</a>
+<a href="/polls/list">설문목록</a>
 <hr>    
     <h1>설문 투표 결과</h1>
     <h2>{{question.pk}}. {{question.question_text}}</h2>

@@ -1,0 +1,27 @@
+<!-- polls/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <a href="/polls/vote_create">설문등록</a>
+    <a href="{% url 'polls:vote_create'%}">설문등록2</a>
+    <a href="/polls/list">설문목록</a>
+    <a href="{% url 'polls:list' %}">설문목록2</a>
+    <hr>
+    <h1>설문 앱입니다.</h1>
+    목록에 다양한 설문 문항이 있습니다. 
+</body>
+</html>
+
+<!-- HTML 주석입니다. -->
+{% comment %}
+url-pattern (config.urls)
+path("", views.home, name="home")
+def home(request):
+    return render(request, "home.html")
+    단순히 template 실행결과를 응답하는 View==>TemplateView 를 사용하면 View함수를 만들 필요 없다.
+{% endcomment %}

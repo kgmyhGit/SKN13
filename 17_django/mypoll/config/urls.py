@@ -17,9 +17,11 @@ Including another URLconf
 # config/urls.py 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from polls import views
 
 urlpatterns = [
+    path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path('admin/', admin.site.urls),
     # path('polls/welcome', views.welcome_poll, name="welcome"),
     path("polls/", include('polls.urls')),
