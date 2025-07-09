@@ -1,29 +1,21 @@
 <!--polls/templates/polls/vote_create.html-->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설문 등록</title>
-</head>
-<body>
-<a href="{% url 'polls:vote_create' %}">설문등록</a>
-<a href="{% url 'polls:list' %}">설문목록</a>
-<hr>
+{% extends "layouts/main_layout.html"%}
+{% block title%}설문 등록{% endblock title%}
+{% block contents%}
 <h1>설문 질문 등록</h1>
 <!-- ACTION 생략: 현재 url로 요청. form요청, 등록 처리가 같은 url이기 때문에 action을 생략 -->
 <form method="post">
     {% csrf_token %}
     <h2>질문</h2>
-    <input type="text" name="question_text" required>
+    <input type="text" name="question_text" required class="form-control">
     <h2>보기</h2>
     <div id="choice_layer">
-        <input type="text" name="choice_text" required>
+        <input type="text" name="choice_text" required class="form-control">
     </div>
-    <div>
-        <button type="button" onclick="addChoice();">보기추가</button>
-        <button type="button" onclick="delChoice();">보기삭제</button>
-        <button type="submit">문제등록</button>
+    <div class="mt-3">
+        <button type="button" onclick="addChoice();" class="btn btn-primary">보기추가</button>
+        <button type="button" onclick="delChoice();" class="btn btn-primary">보기삭제</button>
+        <button type="submit" class="btn btn-primary">문제등록</button>
     </div>
 </form>
 <script>
@@ -33,7 +25,7 @@
         input.setAttribute("type", "text");       // <input type="text">
         input.setAttribute("name", "choice_text");// <input type="text" name="choice_text">
         input.setAttribute("required", true); //<input type="text" name="choice_text" required>
-    
+        input.setAttribute("class", "form-control");
         div = document.getElementById("choice_layer");
         div.append(input);
     }
@@ -48,5 +40,4 @@
         }
     }
 </script>
-</body>
-</html>
+{%endblock contents%}

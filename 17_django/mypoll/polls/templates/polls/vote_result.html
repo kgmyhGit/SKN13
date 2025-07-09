@@ -1,15 +1,8 @@
 <!-- polls/templates/polls/vote_result.html -->
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>투표 결과</title>
-</head>
-<body>
-<a href="{% url 'polls:vote_create' %}">설문등록</a>
-<a href="{% url 'polls:list' %}">설문목록</a>
-<hr>    
+{% extends "layouts/main_layout.html" %}
+
+{% block title%}설문 결과{%endblock title%}
+{% block contents%}
     <h1>설문 투표 결과</h1>
     <h2>{{question.pk}}. {{question.question_text}}</h2>
     <ol>
@@ -17,5 +10,4 @@
             <li>{{choice.choice_text}} - {{choice.votes}}</li>
         {% endfor %}
     </ol>
-</body>
-</html>
+{%endblock contents%}

@@ -1,16 +1,9 @@
 <!-- polls/templates/polls/list.html -->
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설문 목록</title>
-</head>
-<body>
-    <a href="{% url 'polls:vote_create' %}">설문등록</a>
-    <a href="{% url 'polls:list' %}">설문목록</a>
-    <hr>
+{% extends "layouts/main_layout.html" %}
 
+{% block title%}설문 목록{%endblock title%}
+
+{% block contents%}
     <h1>설문 목록</h1>
     <!-- Context Value을 출력 -->
     {% for question in question_list %}
@@ -21,5 +14,4 @@
     {% empty %}
         <b>등록된 설문이 없습니다.</b>
     {% endfor %}
-</body>
-</html>
+{% endblock contents%}

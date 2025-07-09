@@ -1,16 +1,8 @@
 <!-- polls/templates/polls/vote_form.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설문폼</title>
-</head>
-<body>
-<a href="{% url 'polls:vote_create' %}">설문등록</a>
-<a href="{% url 'polls:list' %}">설문목록</a>
-<hr>
+{% extends "layouts/main_layout.html" %}
 
+{% block title%}설문폼{%endblock title%}
+{% block contents %}
 <h1>설문</h1>
 <h2>질문: {{question.pk}}. {{question.question_text}}</h2>
 설문등록일시: {{question.pub_date | date:'Y/m/d H:i:s'}}
@@ -29,8 +21,7 @@
         <label for="{{choice.pk}}">{{choice.choice_text}}</label>
         <input type="radio" name="choice" value="{{choice.pk}}" id="{{choice.pk}}"><br>
     {% endfor %}
-    <button type="submit">투표</button>
-    <button type="reset">선택해제</button>
+    <button type="submit" class="btn btn-primary">투표</button>
+    <button type="reset" class="btn btn-primary">선택해제</button>
 </form>
-</body>
-</html>
+{% endblock contents %}
