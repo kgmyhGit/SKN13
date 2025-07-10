@@ -1,0 +1,29 @@
+<!-- account/templates/account/create.html -->
+{% extends "layouts/main_layout.html" %}
+{% load django_bootstrap5 %}
+
+
+{% comment %}
+ django_bootstrap5 사용. django template에서 bootstrap을 적용할 수있는 태그들을 제공하는 lib.
+ `pip install django_bootstrap5`
+ settings.py의 INSTALLED_APPS에 등록
+ form 입력에 bootstrap적용.
+{% endcomment %}
+
+
+
+{% block title %}회원가입{% endblock title%}
+
+{% block contents %}
+<h1>회원가입</h1>
+<form method="post">
+    {% csrf_token %}
+    
+    {% bootstrap_form  form %}
+
+    <div class="mt3">
+        <button type="submit" class="btn btn-primary">가입</button>
+        <button type="reset" class="btn btn-primay">초기화</button>
+    </div>
+</form>
+{% endblock contents %}

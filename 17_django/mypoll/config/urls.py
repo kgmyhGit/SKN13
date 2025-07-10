@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('polls/welcome', views.welcome_poll, name="welcome"),
     path("polls/", include('polls.urls')),
+    path("account/", include("account.urls")),
 ]
 # path('polls/welcome', views.welcome_poll, name="welcome"),
 # 사용자가 http://127.0.0.1:8000/polls/welcome 요청하면

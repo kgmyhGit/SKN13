@@ -35,3 +35,13 @@
 # template 생성 (응답화면)
 1. polls/templates/polls 디렉토리 생성
 2. welcome.html
+
+
+# 사용자 관리 app
+- App을 생성
+  - `python manage.py startapp account`
+  - settings.py에 등록 (INSTALLED_APPS)
+- User Model 정의
+  - models.py 에 User모델클래스 정의
+  - settings.py에 User모델을 등록
+  - admin app에서 데이터 관리를 위해서 admin.py에 등록 + 화면구성 설정.
