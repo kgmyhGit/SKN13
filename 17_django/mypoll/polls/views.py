@@ -8,6 +8,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse # urls.py의 path이름으로 설정된 url을 조회하는 메소드
+from django.core.paginator import Paginator
+
 from datetime import datetime 
 from .models import Question, Choice # 모델 클래스들 import
 
@@ -50,7 +52,7 @@ def welcome_poll(request):
 # view함수: list
 # template: polls(app)/templates/polls/list.html
 
-def list(request):
+def list_no_paging(request):
     # DB에서 question들을 조회
     q_list = Question.objects.all().order_by("-pub_date")
 
@@ -61,6 +63,54 @@ def list(request):
         {"question_list" : q_list} 
         # template에게 전달할 값 -> context value: dictionary
     )
+
+####################################
+# list -> paging 처리 목록 View
+# - 요청파라미터(querystring)으로 page 번호를 받는다.
+# - 응답 context value(data) 
+#   - 현재 page에 보여줄 데이터들
+#   - 현재 페이지가 속한 페이지 그룹의 시작/끝 페이지 번호
+#   - 현재 페이지 그룹의 시작페이지가 **이전페이지가 있는지 여부/이전 페이지번호**
+#   - 현재 페이지 그룹의 끝 페이지가 **다음페이지가 있는지 여부/다음 페이지번호**
+def list(request):
+    paginate_by = 10      # 한 페이지당 데이터 개수.
+    page_group_count = 10 # 한 페이지그룹당 페이지 개수
+    # http://ip:port/polls/list?page=15
+    current_page = int(request.GET.get('page', 1)) # 현재 조회하려는 페이지번호
+
+    # Question 데이터 조회 + Paginator객체 생성
+    question_list = Question.objects.all().order_by("-pk")
+    pn = Paginator(question_list, paginate_by)
+
+    # 현재 페이지가 속한 페이지그룹의 start/end 페이지 번호 조회
+    start_index = int((current_page - 1) / page_group_count) * page_group_count
+    end_index = start_index + page_group_count
+    page_range = pn.page_range[start_index : end_index]
+
+    # context_value(context_data) -> template에 전달할 값들. dictionary
+    context_value = {
+        "page_range": page_range,  # Page group의 시작/끝페이지 range
+        "question_list": pn.page(current_page),  # 페이지의 데이터들.
+    }
+
+    # 페이지그룹의 시작 페이지가 이전 페이지가 있는지, 이전페이지 번호는 무언지
+    start_page = pn.page(page_range[0])
+    has_previous = start_page.has_previous()
+    if has_previous:
+        previous_page = start_page.previous_page_number()
+        context_value['has_previous'] = has_previous
+        context_value['previous_page'] = previous_page
+    # 페이지그룹의 끝 페이지가 다음 페이지가 있는지, 다음 페이지 번호는 무언지
+    end_page = pn.page(page_range[-1])
+    has_next = end_page.has_next()
+    if has_next:
+        next_page = end_page.next_page_number()
+        context_value['has_next'] = has_next
+        context_value['next_page'] = next_page
+
+    return render(request, "polls/list.html", context_value)
+
+
 
 ################################
 # 개별 설문 페이지로 이동하는 View
