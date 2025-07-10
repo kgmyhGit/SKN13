@@ -5,13 +5,59 @@
 
 {% block contents%}
     <h1>설문 목록</h1>
-    <!-- Context Value을 출력 -->
-    {% for question in question_list %}
-        <!--a href="/polls/vote_form/{{question.pk}}" -->
-        <a href="{% url 'polls:vote_form' question.pk %}">
-            {{question.pk}}. {{question.question_text | truncatewords:4}}
-        </a><br>
-    {% empty %}
-        <b>등록된 설문이 없습니다.</b>
-    {% endfor %}
+    <div class="list-group">
+        {% for question in question_list %}
+            <!--a href="/polls/vote_form/{{question.pk}}" -->
+            <a href="{% url 'polls:vote_form' question.pk %}" 
+               class="list-group-item list-group-item-action">
+                {{question.pk}}. {{question.question_text | truncatewords:4}}
+            </a>
+        {% empty %}
+            <b>등록된 설문이 없습니다.</b>
+        {% endfor %}
+    </div>
+
+    <!-- paging 처리 -> 이동할 페이지 링크 추가 -->
+    <ul class="pagination mt-3">
+        {# 이전 페이지그룹 이동 버튼#}
+        {% if has_previous %}
+            <li class="page-item">
+                <a href="{% url 'polls:list' %}?page={{previous_page}}" class="page-link">
+                    이전
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item">
+                <span class="page-link disabled">이전</span>
+            </li>
+        {% endif %}
+
+        {# 이동할 페이지 번호, 링크 - 현재페이지는 링크를 걸지 않는다. #}
+        {% for page_no in page_range %}
+            {% if page_no == question_list.number %}
+                <li class="page-item">
+                    <span class="page-link disabled">{{page_no}}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a href="{% url 'polls:list' %}?page={{page_no}}" class="page-link">
+                        {{page_no}}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {# 다음 페이지그룹 이동 버튼#}
+        {% if has_next %}
+            <li class="page-item">
+                <a href="{% url 'polls:list' %}?page={{next_page}}" class="page-link">
+                    다음
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item">
+                <span class="page-link disabled">다음</span>
+            </li>
+        {% endif %}
+    </ul>
 {% endblock contents%}
