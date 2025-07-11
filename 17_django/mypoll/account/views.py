@@ -8,11 +8,13 @@ from django.contrib.auth.forms import (
 from django.contrib.auth import (
     login, # 로그인 처리 함수. 로그인한 사용자의 User Model객체를 session에 저장해서 **로그인상태를 유지**하도록 한다.
     logout, # 로그아웃 처리 함수. 로그인 상태를 종료.
-    authenticate # 인증 확인 함수. (username, password를 DB에서 확인)
+    authenticate, # 인증 확인 함수. (username, password를 DB에서 확인)
+    update_session_auth_hash 
+    # 회원정보 수정시 로그인상태유지를 위해 저장된 User 모델객체를 수정된 내용으로 변경하는 함수
 )
 from django.contrib.auth.decorators import login_required 
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 
 #######################################
@@ -104,3 +106,84 @@ def user_logout(request):
 # @login_required
 # def detail(request):
 #     return render(request, "account/detail.html")
+
+##########################################
+# 패스워드 수정 처리 View
+#
+# 요청 url: /account/password_change
+# view함수: password_change
+#    - GET: 패스워드 변경 폼을 응답(template: account/password_change.html)
+#    - POST: 패스워드 변경 처리    (template: account/detail - redirect)
+@login_required
+def password_change(request):
+    if request.method == "GET":
+        # PasswordChangeForm을 비밀번호를 변경할 User 모델을 넣어서 생성. - 기존 패스워드 확인용
+        # login_user = get_user(request) #django.contrib.auth.get_user -> 로그인한 UserModel
+        login_user = request.user
+        form = PasswordChangeForm(login_user)
+        return render(
+            request, "account/password_change.html", {"form":form}
+        )
+    else:
+        # 요청파라미터 조회 -> 검증(Form)
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid(): # 요청파라미터 검증 통과
+            # DB Update
+            user = form.save() # ModelForm.save(): update(o)/insert
+            # 로그인 유지를 위해 저장된 User Model 객체를 업데이트된 User Model로 변경.
+            update_session_auth_hash(request, user)
+            return redirect(reverse("account:detail"))
+        else: # 요청파라미터에 문제가 있는 경우
+            return render(request, "account/password_change.html", {"form":form})
+        
+
+###########################################
+# 회원정보 수정
+# 요청 URL: account/update
+# view함수: user_update
+#     GET - 수정 양식페이지로 이동. (template: account/update.html)
+#     POST- 수정 처리 (account/detail (detail view) : redirect)
+@login_required
+def user_update(request):
+    
+    if request.method == "GET":
+        # 수정 양식 template 반환.
+        ## 로그인한 사용자의 User Model객체를 전달해서 Form 생성
+        form = CustomUserChangeForm(instance=request.user)
+        return render(request, "account/update.html", {"form":form})
+    else:
+        # 수정 처리
+        ## 1. 요청파라미터 조회 + 검증
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            # 저장
+            user = form.save()
+            # 로그인 사용자 정보 갱신
+            update_session_auth_hash(request, user)
+            return redirect(reverse("account:detail"))
+        else:
+            # 검증 실패 -> 수정폼(update.html)로 이동
+            return render(request, "account/update.html", {"form":form})
+        
+
+########################################
+# 회원 탈퇴 - 삭제처리
+#  요청 url : /account/delete
+#  view함수: user_delete
+#  응답: home으로 이동 - redirect
+@login_required
+def user_delete(request):
+    # DB 에서 user정보를 삭제
+    ## 데이터 삭제-model(pk).delete()
+    request.user.delete()
+    # 로그아웃
+    logout(request)
+    return redirect(reverse("home"))
+
+# 일반데이터를 삭제하는 경우(제품, 게시판글 삭제...)
+# 1. 삭제할 데이터의 PK값을 요청파라미터/Path 파라미터로 받는다.
+# 2. Model이용해서 삭제할 데이터를 조회(1의 PK을 이용해서)
+    # q = Question.objects.get(pk=pk)
+    # q = Question(pk=pk)
+# 3. 2번의 Model.delete()
+    # q.delete()

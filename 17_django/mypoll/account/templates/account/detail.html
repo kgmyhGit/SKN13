@@ -22,4 +22,11 @@
         <td>{{user.birthday}}</td>
     </tr>
 </table>
+<div class="mt-5">
+    <a href="{% url 'account:password_change'%}" class="btn btn-primary">패스워드변경</a>
+    <a href="{% url 'account:update'%}" class="btn btn-primary">회원정보변경</a>
+    <a href="{% url 'account:delete' %}" 
+       class="btn btn-danger"
+       onclick="return confirm('정말 탈퇴하겠습니까?')">회원탈퇴</a>
+</div>
 {% endblock contents %}

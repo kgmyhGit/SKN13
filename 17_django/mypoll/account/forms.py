@@ -50,3 +50,22 @@ class CustomUserCreationForm(UserCreationForm):
         
         return name
         
+# 회원정보 수정 폼 - ModelForm
+class CustomUserChangeForm(UserChangeForm):
+    
+    password = None  # 비밀번호 변경 설정 링크가 안나오도록 설정.
+    
+    class Meta:
+        model = User
+        fields = ["name", "email", "birthday"]
+        widgets = {
+            "birthday":forms.DateInput(attrs={"type":"date"})
+        }
+    # name: 두글자 이상 입력.
+    def clean_name(self):
+        # self.cleaned_data : dictionary - 기본 검증을 통과한 요청파라미터들을 조회.
+        name = self.cleaned_data['name']
+        if len(name) < 2:
+            raise forms.ValidationError("사용자 이름은 두글자 이상 입력하세요.")
+        
+        return name
