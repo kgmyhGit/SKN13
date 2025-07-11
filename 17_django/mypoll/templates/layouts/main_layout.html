@@ -10,13 +10,28 @@
     <title>{%block title%}설문{%endblock title%}</title>
 </head>
 <body>
-<!-- 메뉴 - nav -->
+<!-- 
+    메뉴 - nav 
+    로그인 여부와 관계없이 나오는 메뉴: 설문 목록
+    로그인 안한 상태에서 나오는 메뉴: 가입, 로그인
+    로그인 한 상태에서 나오는 메뉴:  설문등록, 로그아웃, 사용자이름(정보조회)  
+                                    설문 참여(투표)      
+-->
+{#{user.username}} {{user.name}} {{user.email}} {{user.birthday}#}
+{# {{user}}, {{user.is_authenticated}} #}
 <nav class="navbar navbar-expand-sm bg-success bg-opacity-10">
     <div class="container">
         <div class="navbar-nav">
-            <a href="{% url 'polls:vote_create' %}" class="nav-link">설문등록</a>
             <a href="{% url 'polls:list' %}" class="nav-link">설문목록</a>
-            <a href="{% url 'account:create' %}" class="nav-link">가입</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'polls:vote_create' %}" class="nav-link">설문등록</a>
+                <a href="{% url 'account:logout' %}" class="nav-link">로그아웃</a>
+                <a href="{% url 'account:detail' %}"class="nav-link">{{user.name}}</a>
+            {% endif %}
+            {% if not user.is_authenticated %}
+                <a href="{% url 'account:create' %}" class="nav-link">가입</a>
+                <a href="{% url 'account:login' %}" class="nav-link">로그인</a>
+            {% endif %}
         </div>
     </div>
 </nav>

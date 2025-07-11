@@ -21,7 +21,11 @@
         <label for="{{choice.pk}}">{{choice.choice_text}}</label>
         <input type="radio" name="choice" value="{{choice.pk}}" id="{{choice.pk}}"><br>
     {% endfor %}
-    <button type="submit" class="btn btn-primary">투표</button>
-    <button type="reset" class="btn btn-primary">선택해제</button>
+    
+    {# 로그인 안한 경우 투표를 못하도록 처리 #}
+    {% if user.is_authenticated %}
+        <button type="submit" class="btn btn-primary">투표</button>
+        <button type="reset" class="btn btn-primary">선택해제</button>
+    {% endif %}
 </form>
 {% endblock contents %}

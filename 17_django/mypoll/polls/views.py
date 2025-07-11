@@ -10,6 +10,8 @@ from django.http import HttpResponse
 from django.urls import reverse # urls.py의 path이름으로 설정된 url을 조회하는 메소드
 from django.core.paginator import Paginator
 
+from django.contrib.auth.decorators import login_required
+
 from datetime import datetime 
 from .models import Question, Choice # 모델 클래스들 import
 
@@ -141,6 +143,7 @@ def vote_form(request, question_id):
 # View 함수에서 요청파라미터 값들 조회
 ## GET:  request.GET - 요청파라미터가 dictionary에 담겨서 제공.
 ## POST: request.POST- 요청파라미터가 dictionary에 담겨서 제공.
+@login_required
 def vote(request):
     # 1. 요청파라미터 조회
     # question_id = request.POST['question_id']  # 없으면 Exception
@@ -194,7 +197,7 @@ def vote_result(request, question_id):
 ##    - POST방식요청: list로 이동 => redirect 방식으로 이동.
 
 # HTTP 요청방식 조회 - HttpRequest.method => "GET", "POST"
-
+@login_required
 def vote_create(request):
     http_method = request.method
     if http_method == "GET":
@@ -215,3 +218,5 @@ def vote_create(request):
         #  응답 - list로 redirect방식으로 이동.
         # return redirect("/polls/list")
         return redirect(reverse("polls:list"))
+
+

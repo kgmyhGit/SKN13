@@ -1,0 +1,25 @@
+<!--account/templates/account/detail.html-->
+{% extends "layouts/main_layout.html" %}
+{% block title %} {{user.username}} 정보 {% endblock title %}
+
+{% block contents %}
+<h1>회원 정보 조회</h1>
+<table class="table">
+    <tr>
+        <th>User name</th>
+        <td>{{user.username}}</td>
+    </tr>
+    <tr>
+        <th>회원이름</th>
+        <td>{{user.name}}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{user.email}}</td>
+    </tr>
+    <tr>
+        <th>생일</th>
+        <td>{{user.birthday}}</td>
+    </tr>
+</table>
+{% endblock contents %}

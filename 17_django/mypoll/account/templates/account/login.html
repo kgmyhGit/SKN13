@@ -1,0 +1,23 @@
+<!-- account/templates/account/login.html -->
+ {% extends "layouts/main_layout.html" %}
+ {% load django_bootstrap5 %}
+
+{% block title%}로그인{% endblock title%}
+
+{% block contents %}
+<h1>로그인</h1>
+{% if error_message %}
+<div style="color:red;font-size:0.8em">{{error_message}}</div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form%}
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">로그인</button>
+        <button type="reset" class="btn btn-primary">초기화</button>
+    </div>
+</form>
+
+{% endblock contents %}
