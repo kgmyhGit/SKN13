@@ -4,7 +4,7 @@ from datetime import datetime
 from django.views.decorators.http import require_GET
 from .llm import Chatting, add_message_to_history
 
-@require_GET
+@require_GET # get방식 요청만 처리
 def chat_message(request, message):
     """
     대화를 수행하는 API 엔드포인트.

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import  chat_message
-from django.views.generic import TemplateView
+
 
 
 urlpatterns = [

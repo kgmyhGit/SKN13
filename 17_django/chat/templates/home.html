@@ -87,7 +87,7 @@
 
     <!-- 메세지 입력 필드 -->
     <div class="chat-input">
-        <input type="text" placeholder="메시지를 입력하세요."  id="chat_input"/>
+        <input type="text" placeholder="메시지를 입력하세요." id="chat_input"/>
         <button id="send_btn">전송</button>
     </div>
 
@@ -105,9 +105,9 @@
             let xhr = new XMLHttpRequest();
             // 2. XMLHttpRequest객체에 요청 URL 을 설정.
             xhr.open('GET', '/api/chat_message/'+message, true);
-            // 3. Callback 함수
+            // 3. Callback 함수 (응답 왔을때 호출될 함수)
             xhr.onload = function() {
-                // 응답이 오고 응답 코드가 200이면.
+                // 응답이 오고 응답 코드가 200(정상응답)이면.
                 if (xhr.status === 200) {
                     // xhr.responseText: 응답 받은 text
                     // JSON.parse(json문자열): JSON을 JS 객체로 변환.
@@ -139,7 +139,8 @@
             // 응답이 오면 xhr.onload 의 callback 이 호출 되서 응답 데이터 처리.
             xhr.send();
         }
-
+  // DOM객체.addEventListener("이벤트", 핸들러함수)
+  //  JS에서 DOM객체에 동적으로 event handler를 추가.
         document.getElementById('send_btn').addEventListener('click', sendMessage);
         document.getElementById('chat_input').addEventListener('keydown', function(event) {
             // 눌린 key가 enter일때.
@@ -151,3 +152,4 @@
     </script>
 </body>
 </html>
+
