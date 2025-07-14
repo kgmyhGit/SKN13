@@ -75,7 +75,7 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             # 유효한 사용자 계정
-            login(request, user) # 로그인 처리 (로그인 상태 유지)
+            login(request, user) # 로그인 처리 (로그인 상태 유지-UserModel 을 session에 저장.)
             
             next_url = request.GET.get("next")
             if next_url is not None: # account/login?next=/poll/vote_create

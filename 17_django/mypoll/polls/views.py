@@ -149,6 +149,23 @@ def vote(request):
     # question_id = request.POST['question_id']  # 없으면 Exception
     question_id = request.POST.get('question_id')# 없으면 None
     choice_id = request.POST.get('choice')
+
+    ##############################
+    # 쿠키(Cookie)를 이용해서 이미 투표한 적이 있는 질문이면 투표를 못하게 처리.
+    #   - 쿠키 연습용(실제는 DB를 통해 처리해야 한다.)
+    # 1. 쿠키 voted_question 에 question_id가 있는지 여부를 확인
+    #   - 있으면 error_message와 함께 vote_form으로 이동
+    # 2. 투표 처리 후 쿠키 voted_question에 투표한 question_id를 추가.
+    
+    voted_question_ids = request.COOKIES.get("voted_question") # 쿠키값을 조회
+    if voted_question_ids is not None:
+        # 투표한 질문ID를 쿠키에 "1,2,3,10,5" `,` 를 구분자로 저장.
+        question_ids = voted_question_ids.split(',') # "1,2,3,10,5" => ['1', '2', '3', '10', '5']
+        if question_id in question_ids: # 이미 투표한 질문
+            question = Question.objects.get(pk=question_id)
+            return render(request, "polls/vote_form.html", 
+                          {"question":question, "error_message":"이미 투표한 설문입니다."})
+
     # 2. 요청파라미터 검증 -> choice가 선택되었는지 여부
     if choice_id: # 선택이 된 경우(정상처리)
         # votes를 1 증가
@@ -165,6 +182,18 @@ def vote(request):
         print("reverse()가 생성한 url:", type(url), url)
         response = redirect(url)
         print(type(response))
+        
+        # voted_question 쿠키에 투표한 질문 ID를 셋팅
+        ## 처음 투표일 경우 (voted_questioN_ids == None) 는 "question_id" 반환
+        ## 기존 투표한 값이 있을 경우 "1,2,3,question_id" 형태로 기존것에 추가해서 반환.
+        voted_question_ids = str(question_id) \
+                             if voted_question_ids is None \
+                             else f"{voted_question_ids},{question_id}"
+        print(voted_question_ids)
+        response.set_cookie("voted_question", voted_question_ids
+                            ,max_age=60*60*24*365) # max_age=초 : cookie가 client에서 유지할 시간
+                                                   # max_age=0 - 삭제
+
         return response
     
     else: # 선택 안된 경우(예외상황) -> vote_form.html 이동

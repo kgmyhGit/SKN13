@@ -1,8 +1,15 @@
-<!-- polls/templates/home.html -->
+<!-- mypoll/templates/home.html -->
 {% extends "layouts/main_layout.html" %}
+{% load static %}
 
 {% block title%}Home{%endblock title%}
 {% block contents%}
     <h1>설문 앱입니다.</h1>
     목록에 다양한 설문 문항이 있습니다. 
+    <p>
+        <!-- img src="/static_url/imgs/survey.png" -->
+        <img src="{% static 'imgs/survey.png'%}">
+        {# static 태그: STATIC_URL 을 앞에 붙여서 경로를 생성. #}
+    </p>
+    <!-- staticfiles/imgs/survey.png -->
 {% endblock contents%}

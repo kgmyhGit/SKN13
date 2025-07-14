@@ -118,10 +118,17 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+#######################################
+# Static files (CSS, JavaScript, Images) 들을 요청할때 사용할 url의 시작
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+# app/static 이외의 경로에 static 파일들이 있을 경우 그 디렉토리를 설정.
+STATICFILES_DIRS = [BASE_DIR / 'staticfiles'] #/static/imgs/survey.jpg
+
+STATIC_ROOT = BASE_DIR / 'statics'
+# python manage.py collectstatic  실행하면 모든 static 파일들을 STATIC_ROOT 경로에 모아준다.
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

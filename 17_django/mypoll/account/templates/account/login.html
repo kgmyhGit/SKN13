@@ -1,11 +1,16 @@
 <!-- account/templates/account/login.html -->
  {% extends "layouts/main_layout.html" %}
  {% load django_bootstrap5 %}
+ {% load static %}
 
 {% block title%}로그인{% endblock title%}
 
 {% block contents %}
 <h1>로그인</h1>
+<!-- account/static/account/imgs/customer.jpg  account(app)/static 에서 자동으로 찾는다.-->
+<!--img src="/static/account/imgs/customer.jpg" width="300px"-->
+<img src="{%static 'account/imgs/customer.jpg' %}" width="300px">
+
 {% if error_message %}
 <div style="color:red;font-size:0.8em">{{error_message}}</div>
 {% endif %}
