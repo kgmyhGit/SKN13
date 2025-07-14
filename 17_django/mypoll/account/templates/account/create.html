@@ -16,7 +16,8 @@
 
 {% block contents %}
 <h1>회원가입</h1>
-<form method="post">
+<!-- file upload: method=post, enctype='multipart/form-data' -->
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     
     {% bootstrap_form  form %}

@@ -18,7 +18,15 @@ class User(AbstractUser):
         null=True,  # nullable
         blank=True, # 입력폼 설정 - 빈값입력 가능 여부(default: False - required)
     )
-
+    # 프로필 이미지 업로드 받는 model field 
+    profile_img = models.ImageField(
+        verbose_name="프로필 사진",
+        upload_to="images/%Y/%m/%d", # 업로드파일을 저장할 경로.(MEDIA_ROOT/지정한 경로)
+        null=True,
+        blank=True
+    )
+    
+    # 모델이 변경 -> python manage.py makemigrations -> migrate
     def __str__(self):
         return f"{self.username} - {self.name}"
 

@@ -17,7 +17,8 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User  # User Model의 model field를 이용해서 Form field를 구성.
         # fields = "__all__" # 모델의 모든 field들을 이용해서 구성.
-        fields = ["username", "password1", "password2", "name", "email", "birthday"] # 특정 model field들을 선택해서 구성.
+        fields = ["username", "password1", "password2",
+                  "name", "email", "birthday", "profile_img"] # 특정 model field들을 선택해서 구성.
         # exclude = ["name"] # 지정한 model field를 제외한 나머지로를 이용해서 구성. (fields와 exclude는 같이 사용 못한다.)
 
         # Form Field들의 input type을 변경.
@@ -57,7 +58,7 @@ class CustomUserChangeForm(UserChangeForm):
     
     class Meta:
         model = User
-        fields = ["name", "email", "birthday"]
+        fields = ["name", "email", "birthday", "profile_img"]
         widgets = {
             "birthday":forms.DateInput(attrs={"type":"date"})
         }

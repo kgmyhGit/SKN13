@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            top: 0;
+            width: 100%;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* 아이템들 간의 간격 적용.*/
+            padding: 10px;
+            max-width: 70%;
+            margin: 10px auto;
+            overflow-y: auto;  /* 안의 내용이 y축(세로)을 넘칠 때 어떻게 할지. auto-넘치면 scroll 이 나오도록한다.*/
+            height: calc(100vh - 250px); /* viewport(화면에 보여지는 영역)의 height 100%에서 입력 폼을 제외한 높이*/
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 70%;
+            overflow-wrap: break-word; /* 글자가 박스를 넘어갈 때 줄바꿈을 하도록 한다. */
+        }
+
+        .left {
+            align-self: flex-start; /* 플렉스 컨테이너 내의 아이템을 왼쪽으로 정렬 (교차축-배열 방향과 직교한 축의 시작에 위치) */
+            background-color: #d7ffb2;
+        }
+
+        .right {
+            align-self: flex-end;   /* 플렉스 컨테이너 내의 아이템을 오른쪽으로 정렬 (교차축의 끝에 위치) */
+            background-color: #007bff;
+            color: white;
+        }
+
+        .chat-input {
+            position: fixed; /* 뷰포트에 상대적으로 위치를 고정하여 스크롤 시에도 동일한 위치에 유지. 위치는 top, left, right, bottom으로 지정 */
+            bottom: 0; /* 뷰포트의 하단에 요소를 배치 */
+            left: 50%; /* 뷰포트의 가로 너비의 50% 지점에 요소의 왼쪽 경계를 위치 */
+            transform: translateX(-50%); /* 요소를 자신의 너비의 50%만큼 왼쪽으로 이동시켜 가로 방향 중앙에 정렬 */
+            width: 70%; /* 요소의 너비를 뷰포트 너비의 70%로 설정 */
+            padding: 10px; /* 요소의 내부 여백을 상하좌우 10px로 설정 */
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* 요소의 상단에 약간의 그림자를 추가하여 부드러운 입체감을 부여 */
+            display: flex; /* 요소의 자식 요소들을 플렉스 컨테이너로 설정하여 유연한 배치 가능 */
+            gap: 20px;     /* 플렉스 컨테이너 내의 자식 요소들 사이에 20px의 간격을 설정 */
+        }
+
+        .chat-input input {
+            flex: 1; /* 플랙스 컨터이너의 남은 공간을 다 차지한다.*/
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #1e8289;
+            color: white;
+            cursor: pointer;            
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>채팅</h1>
+    </header>
+    <!-- 채팅 창 -->
+    <div class="chat-container"></div>
+
+    <!-- 메세지 입력 필드 -->
+    <div class="chat-input">
+        <input type="text" placeholder="메시지를 입력하세요."  id="chat_input"/>
+        <button id="send_btn">전송</button>
+    </div>
+
+    <script type="text/javascript">
+        
+        function sendMessage() {
+            // 채팅 메세지 input field에서 value를 조회.
+            let message = document.getElementById('chat_input').value;
+            if (!message) {
+                alert('메시지를 입력하세요.');
+                return;
+            }
+            // Javascript에서 HTTP 요청 처리 기능을 제공하는 클래스.
+            // 1. XMLHttpRequest객체 생성
+            let xhr = new XMLHttpRequest();
+            // 2. XMLHttpRequest객체에 요청 URL 을 설정.
+            xhr.open('GET', '/api/chat_message/'+message, true);
+            // 3. Callback 함수
+            xhr.onload = function() {
+                // 응답이 오고 응답 코드가 200이면.
+                if (xhr.status === 200) {
+                    // xhr.responseText: 응답 받은 text
+                    // JSON.parse(json문자열): JSON을 JS 객체로 변환.
+                    // "{response:'안녕하세요'}" -> {response:"안녕하세요."}
+                    let data = JSON.parse(xhr.responseText);
+
+                    // 사용자 메세지와 응답 메세지를 채팅창에 추가.
+                    // 사용자 메세지 추가
+                    let chatContainer = document.querySelector('.chat-container');
+                    let userMessage = document.createElement('div'); //<div></div>
+                    userMessage.className = 'message right';//<div class="message right"></div>
+                    userMessage.innerText = message;//<div class="message right">안녕</div>
+                    chatContainer.appendChild(userMessage);//채팅창에 추가.
+                    
+                    // LLM 응답을 채팅창에 추가.
+                    let aiMessage = document.createElement('div');
+                    aiMessage.className = 'message left';
+                    aiMessage.innerText = data.response; //LLM 응답 조회
+                    chatContainer.appendChild(aiMessage);
+
+                    document.getElementById('chat_input').value = '';
+                    document.getElementById('chat_input').focus();
+                } else {
+                    alert(`Error code: ${xhr.status}, Error Msg: ${xhr.statusText}`);
+                }
+            };
+            // 서버로 요청.
+            // xhr.open()설정에 맞춰 요청
+            // 응답이 오면 xhr.onload 의 callback 이 호출 되서 응답 데이터 처리.
+            xhr.send();
+        }
+
+        document.getElementById('send_btn').addEventListener('click', sendMessage);
+        document.getElementById('chat_input').addEventListener('keydown', function(event) {
+            // 눌린 key가 enter일때.
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+    </script>
+</body>
+</html>

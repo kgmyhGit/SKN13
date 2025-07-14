@@ -22,6 +22,16 @@
         <td>{{user.birthday}}</td>
     </tr>
 </table>
+<!-- 프로필 사진 -->
+<b>프로필 사진</b><br>
+{% if user.profile_img %}
+    {#{user.profile_img}#}
+    <img src="{{user.profile_img.url}}"><br>
+    다운로드: <a href="{{user.profile_img.url}}">{{user.profile_img}}</a>
+{% else %}
+    프로필 사진을 등록하지 않았습니다.
+{% endif %}
+
 <div class="mt-5">
     <a href="{% url 'account:password_change'%}" class="btn btn-primary">패스워드변경</a>
     <a href="{% url 'account:update'%}" class="btn btn-primary">회원정보변경</a>
