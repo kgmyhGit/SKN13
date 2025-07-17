@@ -94,6 +94,13 @@ DATABASES = {
         'PASSWORD': '1111', # 패스워드
         'HOST': '127.0.0.1', # DBMS 서버 ip
         'PORT': '3306',      # DBMS 서버 port
+    },
+    'rds': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'admin',
+        'PASSWORD': 'mptres9273',
+        'HOST': 'mypoll-db.c52o8kueyja0.ap-northeast-2.rds.amazonaws.com',
+        'port': '3306'
     }
 }
 
