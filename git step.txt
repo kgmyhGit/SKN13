@@ -16,6 +16,12 @@
    5. git push
 
 
+- 상태확인
+   - git log
+   - git log --oneline
+   - git log --oneline --graph
+
+
 
 
 
